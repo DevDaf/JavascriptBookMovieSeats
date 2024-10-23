@@ -1,0 +1,23 @@
+[
+    {
+      "Title": "Harry Potter and the Philosopher's Stone",
+      "Year": "2001",
+      "Price": 100
+    },
+    {
+      "Title": "Twilight",
+      "Year": "2008",
+      "Price": 150
+    },
+    {
+      "Title": "The Hunger Games",
+      "Year": "2012",
+      "Price": 180
+    },
+    {
+      "Title": "The Hobbit",
+      "Year": "2012",
+      "Price": 180
+    }
+  ]
+  
