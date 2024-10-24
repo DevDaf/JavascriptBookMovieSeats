@@ -6,7 +6,7 @@ class Movie {
   }
 }
 
-// HTML-element för dropdown och stolar
+
 const movieSelectElement = document.getElementById("movie");
 const seats = document.querySelectorAll(".row .seat:not(.occupied)");
 const countElement = document.getElementById("count");
@@ -15,18 +15,18 @@ const totalElement = document.getElementById("total");
 let selectedMoviePrice = 0;
 let selectedSeatsCount = 0;
 
-// Hämta filmer från JSON-filen
+
 async function fetchMovies() {
   try {
-    const movies = await getMoviesData(); // Hämtar filmlista
-    populateMovieDropdown(movies); // Lägg till filmer i dropdown
-    setDefaultMovie(movies); // Första filmen som standard
+    const movies = await getMoviesData(); 
+    populateMovieDropdown(movies); 
+    setDefaultMovie(movies); 
   } catch (err) {
     console.log("Något gick fel vid hämtning:", err);
   }
 }
 
-// Hämta JSON-data och skapa Movie-objekt
+
 async function getMoviesData() {
   const response = await fetch("movies.json");
   if (!response.ok) {
@@ -34,55 +34,55 @@ async function getMoviesData() {
   }
 
   const moviesData = await response.json();
-  // Skapa Movie-objekt för varje film
+
   return moviesData.map(function (movie) {
-    return new Movie(movie.Title, movie.Year, movie.Price); // Omvandlar till Movie-objekt
+    return new Movie(movie.Title, movie.Year, movie.Price); 
   });
 }
 
-// Fills/populates själva dropdown-menyn med filmer
+
 function populateMovieDropdown(movies) {
-  movieSelectElement.innerHTML = ""; // Rensa dropdown
+  movieSelectElement.innerHTML = ""; 
 
   movies.forEach(function (movie) {
     const option = document.createElement("option");
-    option.value = movie.price; // Sätt pris som värde
+    option.value = movie.price; 
     option.textContent =
-      movie.title + " (" + movie.year + ") - " + movie.price + " kr"; // Visa titel och år och pris
-    movieSelectElement.appendChild(option); // Lägg till i dropdown
+      movie.title + " (" + movie.year + ") - " + movie.price + " kr"; 
+    movieSelectElement.appendChild(option); 
   });
 }
 
-// lägger första filmen som standard aka nr 1
+
 function setDefaultMovie(movies) {
   if (movies.length > 0) {
-    selectedMoviePrice = movies[0].price; // Sätter pris för första filmen
-    updateTotalPrice(); // Uppdatera priset på sidan
+    selectedMoviePrice = movies[0].price; 
+    updateTotalPrice(); 
   }
 }
 
-// Uppdatera priset baserat på hur många stolar som har valts
-function updateTotalPrice() {
-  const selectedSeats = document.querySelectorAll(".row .seat.selected"); // Hämtar valda stolar
 
-  selectedSeatsCount = selectedSeats.length; // Räknar valda stolar
-  countElement.textContent = selectedSeatsCount; // Visar antal valda stolar
-  totalElement.textContent = selectedSeatsCount * selectedMoviePrice; // Uppdatera totalpriset
+function updateTotalPrice() {
+  const selectedSeats = document.querySelectorAll(".row .seat.selected");
+
+  selectedSeatsCount = selectedSeats.length;
+  countElement.textContent = selectedSeatsCount; 
+  totalElement.textContent = selectedSeatsCount * selectedMoviePrice; 
 }
 
-// När användaren väljer en annan film
+
 movieSelectElement.addEventListener("change", function (e) {
-  selectedMoviePrice = +e.target.value; // ändrar pris för ny film vald 
-  updateTotalPrice(); // Uppdatera totalpriset obv
+  selectedMoviePrice = +e.target.value; 
+  updateTotalPrice(); 
 });
 
-// När användaren klickar på en stol
+
 seats.forEach(function (seat) {
   seat.addEventListener("click", function () {
-    seat.classList.toggle("selected"); // Markera eller avmarkera stolen
-    updateTotalPrice(); // Uppdatera priset efter du valt
+    seat.classList.toggle("selected"); 
+    updateTotalPrice(); 
   });
 });
 
-// Kör när sidan laddas :)
+
 fetchMovies();
