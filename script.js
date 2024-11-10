@@ -30,7 +30,7 @@ async function fetchMovies() {
 async function getMoviesData() {
   const response = await fetch("movies.json");
   if (!response.ok) {
-    throw new Error("Kunde inte hämta filmer");
+    throw new Error("Filmen hittades inte!");
   }
 
   const moviesData = await response.json();
